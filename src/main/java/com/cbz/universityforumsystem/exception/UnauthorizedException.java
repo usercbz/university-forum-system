@@ -2,12 +2,12 @@ package com.cbz.universityforumsystem.exception;
 
 import static com.cbz.universityforumsystem.constant.MessageConstant.UNAUTHORIZED;
 
-public class UnAuthorizedException extends BaseException{
-    public UnAuthorizedException() {
+public class UnauthorizedException extends  BaseException{
+    public UnauthorizedException() {
         super(UNAUTHORIZED);
     }
 
-    public UnAuthorizedException(String message) {
+    public UnauthorizedException(String message) {
         super(message);
     }
 }

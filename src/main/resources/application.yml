@@ -7,9 +7,45 @@ spring:
     url: jdbc:mysql://localhost:3306/university-forum?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: 111111
+  mail:
+    host: smtp.qq.com
+    username: universityforum@qq.com
+    password: rrmwrcirdqrogbad
+    port: 587
+    default-encoding: UTF-8
+    properties:
+      debug: true
+  task:
+    execution:
+      pool:
+        core-size: 8
+        max-size: 16
+        keep-alive: 30s
+        queue-capacity: 30
+      thread-name-prefix: UniversityForumExecutor-
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  data:
+    mongodb:
+      host: 192.168.93.88
+      port: 27017
+      database: universityforumsystem
 
 mybatis-plus:
   global-config:
     db-config:
       table-prefix: tb_
+      id-type: auto
   mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: com.cbz.universityforumsystem.entity
+
+# minio
+university-forum:
+  minio:
+    accessKey: minio
+    secretKey: minio123
+    bucket: university-forum
+    endpoint: http://192.168.93.88:9000
+    readPath: http://192.168.93.88:9000

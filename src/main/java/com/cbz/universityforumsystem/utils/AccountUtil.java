@@ -3,6 +3,7 @@ package com.cbz.universityforumsystem.utils;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.cbz.universityforumsystem.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -42,6 +43,19 @@ public class AccountUtil {
 
     public void createAccountList() {
         //创建一批账号  30个
+        List<String> accounts = getAccounts();
+        //查询 数据库中的账号是否重复
+        List<String> duplicateAccount = userMapper.selectDuplicateAccount(accounts);
+        //重复 去重
+        if (!CollectionUtils.isEmpty(duplicateAccount)) {
+            accounts = accounts.stream().filter(item -> !duplicateAccount.contains(item)).collect(Collectors.toList());
+        }
+        //存入Redis中
+        redisTemplate.opsForList().rightPushAll(USER_ACCOUNT_LIST, accounts.toArray());
+    }
+
+    @NotNull
+    private static List<String> getAccounts() {
         List<String> accounts = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 30; i++) {
@@ -56,13 +70,6 @@ public class AccountUtil {
             //存入集合
             accounts.add(account.toString());
         }
-        //查询 数据库中的账号是否重复
-        List<String> duplicateAccount = userMapper.selectDuplicateAccount(accounts);
-        //重复 去重
-        if (!CollectionUtils.isEmpty(duplicateAccount)) {
-            accounts = accounts.stream().filter(item -> !duplicateAccount.contains(item)).collect(Collectors.toList());
-        }
-        //存入Redis中
-        redisTemplate.opsForList().rightPushAll(USER_ACCOUNT_LIST, accounts.toArray());
+        return accounts;
     }
 }

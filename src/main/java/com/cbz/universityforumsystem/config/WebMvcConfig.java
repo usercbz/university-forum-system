@@ -2,6 +2,7 @@ package com.cbz.universityforumsystem.config;
 
 import com.cbz.universityforumsystem.interceptor.LoginInterceptor;
 import com.cbz.universityforumsystem.utils.JsonObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //添加拦截器
-        registry.addInterceptor(loginInterceptor).excludePathPatterns("/login");
+        registry.addInterceptor(loginInterceptor)
+                .excludePathPatterns("/**/login", "/**/register", "/**/code");
     }
 
     @Override

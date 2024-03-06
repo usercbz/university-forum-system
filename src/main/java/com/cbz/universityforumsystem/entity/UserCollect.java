@@ -2,12 +2,13 @@ package com.cbz.universityforumsystem.entity;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
+
 @Data
-public class ArticleContent {
-    //id
+public class UserCollect {
     private Long id;
-    //文章id
     private Long articleId;
-    //内容
-    private String content;
+    private Long userId;
+    private LocalDateTime createTime;
 }

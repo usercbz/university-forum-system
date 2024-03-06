@@ -18,13 +18,11 @@ import java.time.format.DateTimeFormatter;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
-/**
- * JSON
- */
+
 public class JsonObjectMapper extends ObjectMapper {
 
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
 
     public JsonObjectMapper() {

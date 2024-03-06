@@ -1,8 +1,11 @@
 package com.cbz.universityforumsystem.utils;
 
+import lombok.Data;
+
 /**
  * 结果处理
  */
+@Data
 public class Result {
     private int code;
     private Object data;
